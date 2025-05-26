@@ -1,14 +1,43 @@
 import { useState } from "react";
 
 function App() {
-  const articols = [`bicchieri`, `posate`, `pentolame`];
+  const [articols, setArticols] = useState([
+    {
+      id: 1,
+      title: `bicchieri`,
+    },
+    {
+      id: 2,
+      title: `posate`,
+    },
+    {
+      id: 3,
+      title: `pentolame`,
+    },
+  ]);
+  console.log(articols);
 
-  const [articol, setArticol] = useState(articols);
-  console.log(articol);
+  const [articol, setArticol] = useState("");
 
-  const newArticols = [...articols];
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
 
-  const [newArticol, setNewArticol] = useState("");
+    // QUI QUI QUI
+    const newId = articols[articols.length - 1].id + 1;
+
+    const newArticols = [
+      ...articols,
+      {
+        id: newId,
+        title: articol,
+      },
+    ];
+
+    console.log(newArticols);
+    setArticols(newArticols); // Settando il nuovo array con il testo inserito
+    setArticol("");
+    // [e.target.name] : e.target.value;
+  };
 
   return (
     <>
@@ -17,14 +46,16 @@ function App() {
           <h1>Lista articoli</h1>
           <ul>
             {articols.map((articol, index) => (
-              <li onChange={setArticol} key={index}>
-                {articol}
-              </li>
+              <li key={articol.id}>{articol.title}</li>
             ))}
           </ul>
 
-          <form className="form-add-articol">
-            <input onChange={setNewArticol} type="text" value={newArticol} />
+          <form className="form-add-articol" onSubmit={handleFormSubmit}>
+            <input
+              onChange={(e) => setArticol(e.target.value)}
+              type="text"
+              value={articol}
+            />
             <input className="btn-form-add" type="submit" value="Aggiungi" />
           </form>
         </div>
@@ -32,5 +63,4 @@ function App() {
     </>
   );
 }
-
 export default App;
