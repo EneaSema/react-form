@@ -1,7 +1,9 @@
 function App() {
   return (
     <>
-      <h1>React Blog Form</h1>
+      <main>
+        <h1>Ciao</h1>
+      </main>
     </>
   );
 }
